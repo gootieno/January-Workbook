@@ -1,5 +1,38 @@
 /* Your code here */
+#page-title {
+    font-weight: bold;
+}
 
+.pagenum {
+    position: absolute;
+    right: 1%;
+    font-size: small;
+}
+
+p {
+    text-align: justify;
+    margin: .75em 0;
+}
+
+pre {
+    margin: 100px auto;
+    width: fit-content;
+}
+
+.td2 > a{
+    text-decoration: none;
+}
+
+.td2 > a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+pre > a {
+    color: black;
+    text-decoration: underline;
+    font-weight: bold;
+}
 /* ===== DO NOT EDIT BELOW THIS COMMENT ===== */
 
 .noin {
