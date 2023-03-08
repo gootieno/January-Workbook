@@ -84,7 +84,7 @@ div > p {
 }
 
 #bq {
-    /* margin: 0; */
+    margin: 0;
     display: flex;
     justify-content: flex-end;
 
