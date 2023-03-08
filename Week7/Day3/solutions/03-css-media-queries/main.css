@@ -76,22 +76,56 @@ header {
 }
 .content {
     flex-direction: column;
+    border: 5px solid blue;
 }
+
+
 .sidebar {
     flex-direction: row;
     justify-content: center;
-}
 
+}
 /* ----- Phase 1 - Moderate Screen ----- */
 
 /* Your code here */
-
+@media screen and (min-width: 821px){
+    .content {
+        flex-direction: row;
+        /* border: 5px solid red; */
+    }
+}
 /* ----- Phase 1 - Wide Screen ----- */
 
 /* Your code here */
+
+@media screen and (min-width: 1220px){
+    .page {
+        flex-direction: row;
+    }
+}
+
 
 /* ===== PRINTING ===== */
 
 /* Phase 2 */
 
 /* Your code here */
+@media print {
+    * {
+        background-color: none;
+    }
+
+    div > * {
+        
+    }
+
+    .story-box {
+        background-color: white;
+        border-radius: 0;
+        filter: none;
+    }
+
+    h1, .sidebar, header, .image-box {
+        display: none;
+    }
+}
