@@ -1,25 +1,52 @@
 function firstStep(input) {
-  // Your code here
+  //!!START
+  return input.split("&");
+  //!!END
 }
 
 function secondStep(input) {
-  // Your code here
+  //!!START
+  return input.map((keyValuePair) => keyValuePair.split("="));
+  //!!END
 }
 
 function thirdStep(input) {
-  // Your code here
+  //!!START
+  return input.map(([key, value]) => [key, value.replace(/\+/g, " ")]);
+  //!!END
 }
 
 function fourthStep(input) {
-  // Your code here
+  //!!START
+  return input.map(([key, value]) => [key, decodeURIComponent(value)]);
+  //!!END
 }
 
 function fifthStep(input) {
-  // Your code here
+  //!!START
+  return input.reduce((acc, [key, value]) => {
+    acc[key] = value;
+    return acc;
+  }, {});
+  //!!END
 }
 
 function parseBody(str) {
-  // Your code here
+  //!!START
+  const splitString = firstStep(str);
+  // ["username=azure+green", "password=password%21"]
+  const keyValueArrays = secondStep(splitString);
+  // [["username", "azure+green"], ["password", "password%21"]]
+  const replacedPlusSigns = thirdStep(keyValueArrays);
+  // [["username", "azure green"], ["password", "password%21"]]
+  const decodeValues = fourthStep(replacedPlusSigns);
+  // [["username", "azure green"], ["password", "password!"]]
+  return fifthStep(decodeValues);
+  // {
+  //   username: 'azure green',
+  //   password: 'password!'
+  // }
+  //!!END
 }
 
 /******************************************************************************/
@@ -31,5 +58,5 @@ module.exports = {
   thirdStep,
   fourthStep,
   fifthStep,
-  parseBody
+  parseBody,
 };

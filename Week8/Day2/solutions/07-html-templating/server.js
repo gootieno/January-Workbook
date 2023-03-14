@@ -155,6 +155,20 @@ const server = http.createServer((req, res) => {
     // Phase 4: POST /dogs
     if (req.method === "POST" && req.url === "/dogs") {
       // Your code here
+      const { name, age } = req.body;
+      console.log("name and age => ", name, age);
+
+      const newDog = {
+        dogId: getNewDogId(),
+        name,
+        age,
+      };
+
+      dogs.push(newDog);
+
+      res.setHeader("Location", `/dogs/${newDog.dogId}`);
+      res.statusCode = 302;
+      return res.end();
     }
 
     // Phase 5: GET /dogs/:dogId/edit
