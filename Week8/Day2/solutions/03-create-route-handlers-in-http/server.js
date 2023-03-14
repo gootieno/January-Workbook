@@ -1,5 +1,4 @@
 const http = require("http");
-const { url } = require("inspector");
 
 let nextDogId = 1;
 
@@ -12,7 +11,7 @@ function getNewDogId() {
 const server = http.createServer((req, res) => {
   console.log(`${req.method} ${req.url}`);
 
-  let reqBody = "";
+  let reqBody = ""; // affiliate=nasa&query=Mars+Rover%21
   req.on("data", (data) => {
     reqBody += data;
   });
@@ -21,16 +20,23 @@ const server = http.createServer((req, res) => {
   req.on("end", () => {
     // Parsing the body of the request
     if (reqBody) {
-      req.body = reqBody
-        .split("&")
-        .map((keyValuePair) => keyValuePair.split("="))
-        .map(([key, value]) => [key, value.replace(/\+/g, " ")])
-        .map(([key, value]) => [key, decodeURIComponent(value)])
+      console.log("req body before parse => ", reqBody);
+      req.body = reqBody // affiliate=nasa&query=Mars+Rover%21
+        .split("&") // [affiliate=nasa,query=Mars+Rover%21]
+        .map((keyValuePair) => keyValuePair.split("=")) // [[affiliate,nasa],[query,Mars+Rover%21]]
+        .map(([key, value]) => [key, value.replace(/\+/g, " ")]) // [[affiliate,nasa],[query,Mars Rover%21]]
+        .map(([key, value]) => [key, decodeURIComponent(value)]) // [[affiliate,nasa],[query,Mars Rover!]]
         .reduce((acc, [key, value]) => {
           acc[key] = value;
           return acc;
         }, {});
       console.log(req.body);
+      /*
+        {
+          affiliate: nasa,
+          query: Mars Rover!
+        }
+      */
     }
     // Do not edit above this line
 
@@ -54,7 +60,7 @@ const server = http.createServer((req, res) => {
     // const string = req.url.split("/");
 
     if (req.method === "GET" && req.url.startsWith("/dogs")) {
-      console.log("req url ", req.url);
+      console.log("req url =======>", req.url);
 
       const urlParts = req.url.split("/");
       console.log("url parts ", urlParts);
@@ -74,6 +80,19 @@ const server = http.createServer((req, res) => {
           return res.end(resBody);
         }
       }
+
+      // example checking for /dogs/1/comments/etc..
+      // if (urlParts.length === 4 && urlParts[3] === "comments") {
+      //   // do something
+      // }
+    }
+
+    if (req.method === "POST" && req.url === "/dogs") {
+      const dogId = getNewDogId();
+
+      res.statusCode = 302;
+      res.setHeader("Location", `/dogs/${dogId}`);
+      return res.end();
     }
 
     // Do not edit below this line
