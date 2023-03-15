@@ -1,0 +1,5 @@
+#create-comment-container {
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px grey;
+    padding: 10px;
+}
