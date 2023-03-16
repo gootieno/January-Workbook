@@ -88,6 +88,11 @@ const server = http.createServer((req, res) => {
   //   res.statusCode = 404;
   //   res.setHeader("Content-Type", "text/plain");
   //   return res.end("Page Not Found");
+  fetch('/posts', {
+    method: "POST", 
+    headers: {'Content-Type': "application/json"},
+    body: JSON.stringify({"message": "hello world!"})
+  })
 });
 
 const port = 5000;

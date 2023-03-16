@@ -100,16 +100,16 @@ Test this in Postman or by using `fetch` in the browser.
 
 Request components:
 
-- Method:
-- URL:
-- Headers:
-- Body:
+- Method: GET
+- URL:  /artists/:artistId
+- Headers: none
+- Body: none
 
 Response components:
 
-- Status code:
-- Headers:
-- Body:
+- Status code: 200
+- Headers: {'content-type': 'application/json'}
+- Body: specific artist info
 
 ### Add an artist
 
