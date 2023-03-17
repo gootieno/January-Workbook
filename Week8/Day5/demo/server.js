@@ -28,15 +28,19 @@ const server = http.createServer((req, res) => {
   req.on("end", () => {
     // Parsing the body of the request
     if (reqBody) {
-      req.body = reqBody
-        .split("&")
-        .map((keyValuePair) => keyValuePair.split("="))
-        .map(([key, value]) => [key, value.replace(/\+/g, " ")])
-        .map(([key, value]) => [key, decodeURIComponent(value)])
-        .reduce((acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        }, {});
+      if (req.headers["content-type"] === "application/json") {
+        req.body = JSON.parse(reqBody);
+      } else {
+        req.body = reqBody
+          .split("&")
+          .map((keyValuePair) => keyValuePair.split("="))
+          .map(([key, value]) => [key, value.replace(/\+/g, " ")])
+          .map(([key, value]) => [key, decodeURIComponent(value)])
+          .reduce((acc, [key, value]) => {
+            acc[key] = value;
+            return acc;
+          }, {});
+      }
       console.log(req.body);
     }
 
@@ -60,29 +64,30 @@ const server = http.createServer((req, res) => {
     if (req.method === "GET" && req.url === "/") {
       const htmlPage = fs.readFileSync("index.html", "utf-8");
 
-      let commentList = "";
-      for (const comment of comments) {
-        commentList += `<li>${comment}</li>`;
-      }
+      // let commentList = "";
+      // for (const comment of comments) {
+      //   commentList += `<li>${comment}</li>`;
+      // }
 
-      console.log("comments list ", commentList);
+      // console.log("comments list ", commentList);
 
-      const responseBody = htmlPage.replace(
-        /#{comments}/,
-        comments.length ? commentList : `<li>No Comments Yet</li>`
-      );
+      // const responseBody = htmlPage.replace(
+      //   /#{comments}/,
+      //   comments.length ? commentList : `<li>No Comments Yet</li>`
+      // );
       res.statusCode = 200;
       res.setHeader("Content-Type", "text/html");
-      return res.end(responseBody);
+      return res.end(htmlPage);
     }
 
     if (req.method === "POST" && req.url === "/comments") {
       const { comment } = req.body;
 
       comments.push(comment);
-      res.statusCode = 302;
-      res.setHeader("Location", "/");
-      return res.end();
+      console.log('where am I ?')
+      res.statusCode = 201;
+      res.setHeader("Content-Type", "application/json");
+      return res.end(JSON.stringify(comment));
     }
   });
   //   res.statusCode = 404;
