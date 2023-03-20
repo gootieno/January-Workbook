@@ -1,32 +1,38 @@
-class Game {
+export const banana = 'banana'
+// import * as gameUtils from './utilities.js'
+import { getIndex } from './utilities.js';
+import  {mrPotatoHeadQuotes}  from './quotes/mrPotatoHead.js';
+import  mrsPotatoHeadQuotes  from './quotes/mrsPotatoHead.js';
 
+export default class Game {
   start() {
-
-    document.getElementById('hello').addEventListener('click', () => {
-      const index = getIndex();
-      const messageContainer = document.getElementById('message');
+    document.getElementById("hello").addEventListener("click", () => {
+      // const index = gameUtils.getIndex();
+      const index = getIndex()
+      console.log(index)
+      const messageContainer = document.getElementById("message");
       if (index === 1) {
-        messageContainer.innerText = mrPotatoHeadQuotes['hello'];
+        messageContainer.innerText = mrPotatoHeadQuotes["hello"];
       } else {
-        messageContainer.innerText = mrsPotatoHeadQuotes['hello'];
+        messageContainer.innerText = mrsPotatoHeadQuotes["hello"];
       }
     });
 
-    document.getElementById('bye').addEventListener('click', () => {
+    document.getElementById("bye").addEventListener("click", () => {
       const index = getIndex();
-      const messageContainer = document.getElementById('message');
+      const messageContainer = document.getElementById("message");
       if (index === 1) {
-        messageContainer.innerText = mrPotatoHeadQuotes['bye'];
+        messageContainer.innerText = mrPotatoHeadQuotes["bye"];
       } else {
-        messageContainer.innerText = mrsPotatoHeadQuotes['bye'];
+        messageContainer.innerText = mrsPotatoHeadQuotes["bye"];
       }
     });
 
-    document.getElementById('swap').addEventListener('click', () => {
+    document.getElementById("swap").addEventListener("click", () => {
       const index = getIndex();
-      const image = document.getElementById('image');
-      const messageContainer = document.getElementById('message');
-      const wrapper = document.getElementById('wrapper');
+      const image = document.getElementById("image");
+      const messageContainer = document.getElementById("message");
+      const wrapper = document.getElementById("wrapper");
       if (index === 1) {
         image.src = "./assets/images/potatohead2.png";
         wrapper.dataset.index = "2";
@@ -35,6 +41,8 @@ class Game {
         wrapper.dataset.index = "1";
       }
       messageContainer.innerText = "";
-    })
+    });
   }
 }
+
+// export default Game;
