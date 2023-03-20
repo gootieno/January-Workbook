@@ -9,8 +9,6 @@ window.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify({ comment: inputValue }),
     });
 
-    console.log("where am I??");
-
     if (response.ok) {
       const data = await response.json();
 
