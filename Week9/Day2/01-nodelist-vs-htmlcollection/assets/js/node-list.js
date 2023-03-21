@@ -1,6 +1,6 @@
 export default () => {
   const bodyChildNodes = document.body.childNodes; // NodeList [text, div, text]
-  // console.log(bodyChildNodes);
+  console.log("body child nodes ", bodyChildNodes);
 
   const div = bodyChildNodes[1]; // NOT bodyChildNodes[0]
 
