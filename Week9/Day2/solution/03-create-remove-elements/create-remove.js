@@ -24,7 +24,29 @@ add.addEventListener("click", async () => {
             </li>
 
         */
+    const urlParts = url.split("/");
+    console.log("url parts ", urlParts);
 
+    const li = document.createElement("li");
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const figcaption = document.createElement("figcaption");
+
+    img.setAttribute("src", url);
+    figcaption.innerText = urlParts[4];
+
+    figure.append(img, figcaption);
+    li.appendChild(figure);
+
+    const ul = document.querySelector("ul");
+
+    figcaption.style.color = "red";
+
+    ul.style.display = "inline-grid";
+    ul.style.gridTemplateColumns = "1fr 1fr";
+    ul.style.gap = "10px";
+    ul.style.border = "2px solid black";
+    ul.appendChild(li);
     /*------------ Create new dog card with the url above ------------- */
     /* (use the HTML structure for the current dog image in the index.html
             file to create a new image with the url) */
@@ -44,6 +66,8 @@ removeFirst.addEventListener("click", () => {
   // Your code here
   /*-------------------- Remove the first dog card --------------------- */
   // Your code here
+  let firstDog = document.querySelector(".gallery > ul > li");
+  firstDog.remove();
 });
 
 /************************** REMOVE LAST DOG BUTTON ***************************/
@@ -53,4 +77,6 @@ removeLast.addEventListener("click", () => {
   // Your code here
   /*-------------------- Remove the last dog card ----------------------- */
   // Your code here
+  const lastDog = document.querySelector(".gallery > ul").lastElementChild;
+  lastDog.remove();
 });
