@@ -47,12 +47,13 @@ function restoreName() {
   // Your code here
   const displayName = cookieParser("displayName");
 
-  displayName && setInputValue('display-name', displayName)
+  displayName && setInputValue("display-name", displayName);
 }
 
 // For clearing user's display name from cookies
 function clearName() {
   // Your code here
+  document.cookie = `displayName=;expires=${new Date(0).toUTCString()}`;
 }
 
 /* ========================================================================= */
